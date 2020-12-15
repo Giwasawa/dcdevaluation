@@ -1,0 +1,8 @@
+setup.py
+dcdevaluation/__init__.py
+dcdevaluation/dcdevaluation.py
+dcdevaluation.egg-info/PKG-INFO
+dcdevaluation.egg-info/SOURCES.txt
+dcdevaluation.egg-info/dependency_links.txt
+dcdevaluation.egg-info/not-zip-safe
+dcdevaluation.egg-info/top_level.txt
