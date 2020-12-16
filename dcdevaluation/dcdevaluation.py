@@ -4,8 +4,6 @@ import pandas            as pd
 import numpy             as np
 import matplotlib.pyplot as plt
 
-%matplotlib inline
-
 # Metrics
 from scipy.stats             import ks_2samp
 from sklearn.metrics         import confusion_matrix, auc, roc_curve, recall_score, accuracy_score, precision_score
