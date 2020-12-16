@@ -71,5 +71,11 @@ Has the attribute bins, which allows the user to change the desired number of sp
 train_dataset.split_rate_graph()
 ```
 
+### find_cut()
+Shows precision,recall and F1 score for 20 different cutting points.
+
+``` sh
+train_dataset.find_cut()
+```
 
  
