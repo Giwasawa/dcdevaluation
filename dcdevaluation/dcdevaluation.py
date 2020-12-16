@@ -124,7 +124,7 @@ class Evaluators:
         
 # ------------------- All metrics ------------------- 
 
-    def evaluate(self):
+    def evaluate(self, verbose = True):
         
         """ Calls all evaluation metrics.
 
@@ -142,6 +142,14 @@ class Evaluators:
         self.get_recall()
         self.get_precision()
         self.get_accuracy()
+        
+        if verbose == True:
+            return print(' KS: {}\n'       .format(self.ks ),
+                         'AUC: {}\n'       .format(self.auc),
+                         'F1: {}\n'        .format(self.f1 ),
+                         'Precision: {}\n' .format(self.precision),
+                         'Recall: {}\n'    .format(self.recall),
+                         'Accuracy: {}\n'  .format(self.accuracy))
         
 # ------------------- Make table ------------------- 
 
@@ -164,6 +172,8 @@ class Evaluators:
         evaluation metrics
         """         
         
+        self.evaluate(verbose = False)
+        
         self.metric_df = pd.DataFrame({'KS'        : self.ks       ,
                                        'AUC'       : self.auc      ,
                                        'F1'        : self.f1       ,
@@ -172,6 +182,8 @@ class Evaluators:
                                        'Accuracy'  : self.accuracy }, index = [dataset])
         
         self.t_metric_df = self.metric_df.T
+        
+        return self.metric_df
         
 # ------------------- Spliting into bins ------------------- 
 
@@ -263,3 +275,28 @@ class Evaluators:
         autolabel(rects)
 
         plt.show()
+        
+# ------------------- Find Cut Spot ------------------- 
+
+    def find_cut(self):
+        
+        cut_df = pd.DataFrame(columns = {'Cut', 'Precision', 'Recall', 'F1',  'Count'})
+        
+        for i in range(0,20):
+            
+            cut = i / 20
+            
+            tp = self.df.loc[(self.df['True'] == 1) & (self.df['Pred'] >= cut)]
+            fn = self.df.loc[(self.df['True'] == 1) & (self.df['Pred'] <  cut)]
+            fp = self.df.loc[(self.df['True'] == 0) & (self.df['Pred'] >= cut)]
+            
+            cut_df.at[i, 'Cut']       = round(cut, 2)
+            cut_df.at[i, 'Precision'] = round((tp.shape[0] / (tp.shape[0] + fp.shape[0]))* 100, 2)
+            cut_df.at[i, 'Recall']    = round((tp.shape[0] / (tp.shape[0] + fn.shape[0]))* 100, 2)
+            cut_df.at[i, 'F1']        = round((tp.shape[0] / (tp.shape[0] + (0.5 * (fp.shape[0] + fn.shape[0]))))* 100, 2)
+            cut_df.at[i, 'Count']     = self.df[self.df['Pred'] >= cut].shape[0]
+            
+        cut_df = cut_df[['Cut', 'Count','Precision','Recall','F1']].set_index('Cut')
+        self.cut_df = cut_df
+            
+        return cut_df
