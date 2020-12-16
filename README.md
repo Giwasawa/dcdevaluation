@@ -40,7 +40,7 @@ Attributes scores for all supported metrics(see above) to your select "dataset"
 ```sh
 train_dataset.evaluate()
 ```
-This method returns?
+This method returns:
 ``` sh
 train_dataset.ks
 train_dataset.auc
