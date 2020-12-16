@@ -18,7 +18,7 @@ As it is in it's early stages, for now, it only supports binary classification m
 - Matplotlib (3.3.0)
 - Numpy(1.18.5)
 
-# User instalation
+# User installation
 - Installing
 ```sh
 pip install dcdevaluation
@@ -65,7 +65,7 @@ train_dataset.t_metric_df
 ### split_rate_graph(bins)
 Creates a graph showing the good or bad rate of your model
 
-Has the attribute bins, which allows the user to change the disired number of splits (default = 10)
+Has the attribute bins, which allows the user to change the desired number of splits (default = 10)
 
 ``` sh
 train_dataset.split_rate_graph()
