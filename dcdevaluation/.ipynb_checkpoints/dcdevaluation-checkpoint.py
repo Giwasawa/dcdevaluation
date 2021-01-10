@@ -278,11 +278,11 @@ class Evaluators:
         
 # ------------------- Find Cut Spot ------------------- 
 
-    def find_cut(self):
+    def find_cut(self, minimum = 0, maximum = 20):
         
         cut_df = pd.DataFrame(columns = {'Cut', 'Precision', 'Recall', 'F1',  'Count'})
         
-        for i in range(0,20):
+        for i in range(minimum ,maximum):
             
             cut = i / 20
             
@@ -291,7 +291,13 @@ class Evaluators:
             fp = self.df.loc[(self.df['True'] == 0) & (self.df['Pred'] >= cut)]
             
             cut_df.at[i, 'Cut']       = round(cut, 2)
-            cut_df.at[i, 'Precision'] = round((tp.shape[0] / (tp.shape[0] + fp.shape[0]))* 100, 2)
+            
+            if (fp.shape[0] + tp.shape[0]) == 0:
+                cut_df.at[i, 'Precision'] == 'undefined'
+                
+            else:
+                cut_df.at[i, 'Precision'] = round((tp.shape[0] / (tp.shape[0] + fp.shape[0]))* 100, 2)
+                
             cut_df.at[i, 'Recall']    = round((tp.shape[0] / (tp.shape[0] + fn.shape[0]))* 100, 2)
             cut_df.at[i, 'F1']        = round((tp.shape[0] / (tp.shape[0] + (0.5 * (fp.shape[0] + fn.shape[0]))))* 100, 2)
             cut_df.at[i, 'Count']     = self.df[self.df['Pred'] >= cut].shape[0]
