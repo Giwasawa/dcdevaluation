@@ -13,10 +13,10 @@ As it is in it's early stages, for now, it only supports binary classification m
 - "Bad rate graph"
 
 # Requirements
-- scikit-learn (0.23.2)
-- Pandas (1.0.5)
-- Matplotlib (3.3.0)
-- Numpy(1.18.5)
+- scikit-learn (>0.23.2)
+- Pandas (>1.0.5)
+- Matplotlib (>3.3.0)
+- Numpy(>1.18.5)
 
 # User installation
 - Installing
