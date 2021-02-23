@@ -280,6 +280,20 @@ class Evaluators:
 
     def find_cut(self, minimum = 0, maximum = 20):
         
+        """ Cuts the scored dataframe in 20 different points
+        to help the scientist find the optimal cutting point
+        
+        --------------  Attributes  --------------
+        minimum = Starting cutting point.
+        Default is 0.
+        maximum = Ending cutting point
+        Default is 20.
+        
+        --------------  Output  --------------
+        A table showing the Precision, Recall, F1 and count
+        for different cutting points
+        """  
+        
         cut_df = pd.DataFrame(columns = {'Cut', 'Precision', 'Recall', 'F1',  'Count'})
         
         for i in range(minimum ,maximum):
@@ -306,3 +320,33 @@ class Evaluators:
         self.cut_df = cut_df
             
         return cut_df
+    
+# ------------------- ROC AUC Graph ------------------- 
+
+    def ROC_curve(self, label = 'Dataset'):
+        
+        
+        """ Creates a graph showing the ROC curve.
+           
+        --------------  Output  --------------
+        Graph with the ROC curve vs coin.
+        """  
+
+        fig = plt.subplots(figsize = (12,8))
+        
+        title_font = {'fontname' : 'DejaVu Sans',
+                      'size'     : '17',
+                      'weight'   : 'bold'}
+        axis_font  = {'fontname' : 'DejaVu Sans',
+                      'size'     : '12'}
+
+        lr_fpr_0, lr_tpr_0, _ = roc_curve(np.asarray(self.df['True']), np.asarray(self.df['Pred']))
+
+        plt.plot([0.0, 1.0], [0.0, 1.0], 'r--', linewidth = 0.5, label = 'Coin', color = 'black')
+        plt.plot(lr_fpr_0, lr_tpr_0, linewidth = 0.5, label = label, color = 'blue')
+
+        plt.title('ROC curve', title_font)
+        plt.xlabel('False Positive Rate', axis_font)
+        plt.ylabel('True Positive Rate', axis_font)
+        plt.legend()
+
