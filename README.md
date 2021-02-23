@@ -80,4 +80,10 @@ Also has the option to select a range of cutting points (default: min = 0, max =
 train_dataset.find_cut()
 ```
 
+### ROC_curve(dataset)
+Creates as graph showing de ROC curve and it's comparison to "the coin".
+
+``` sh
+train_dataset.ROC_auc()
+```
  
