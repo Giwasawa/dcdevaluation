@@ -1,7 +1,7 @@
 # dcdevaluation (Decode - Evaluation package)
 dcdevaluation is a library that optimizes the model evaluation process.
 It was built based on the necessities of the data science team of a company named Decode, based on São Paulo - Brazil.
-As it is in it's early stages, for now, it only supports binary classification models.
+As it is in it's early stages, for now, it only supports classification models.
 
 # Supported metrics
 - KS
